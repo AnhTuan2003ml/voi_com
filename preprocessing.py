@@ -1,13 +1,12 @@
-#from memory_profiler import memory_usage
 import os
 import pandas as pd
 from glob import glob
 import numpy as np
-from keras import layers
-from keras import models
-from keras.layers.advanced_activations import LeakyReLU
-from keras.optimizers import Adam
-import keras.backend as K
+from tensorflow.keras import layers
+from tensorflow.keras import models
+from tensorflow.keras.layers import LeakyReLU
+from tensorflow.keras.optimizers import Adam
+import tensorflow.keras.backend as K
 import librosa
 import librosa.display
 import pylab
@@ -15,13 +14,11 @@ import matplotlib.pyplot as plt
 from matplotlib import figure
 import gc
 from path import Path
-from keras.layers import Dense, Activation, Flatten, Dropout, BatchNormalization
-from keras.models import Sequential, Model
-from keras.layers import Conv2D, MaxPooling2D
-from keras import regularizers, optimizers
-import pandas as pd
-import numpy as np
-from keras_preprocessing.image import ImageDataGenerator
+from tensorflow.keras.layers import Dense, Activation, Flatten, Dropout, BatchNormalization
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras import regularizers, optimizers
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 train_data_path='data/train/'
 test_data_path='data/test/'

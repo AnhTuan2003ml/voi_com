@@ -7,16 +7,17 @@ import numpy as np
 import gc
 import pickle
 
-# Thư viện học sâu với Keras
-from keras import layers, models, regularizers, optimizers
-from keras.layers import (
+# Thư viện học sâu với TensorFlow (Keras đã tích hợp sẵn)
+import tensorflow as tf
+from tensorflow.keras import layers, models, regularizers, optimizers
+from tensorflow.keras.layers import (
     Dense, Activation, Flatten, Dropout, BatchNormalization, 
     Conv2D, MaxPooling2D, MaxPool2D, LeakyReLU
 )
-from keras.models import Sequential, Model
-from keras.optimizers import Adam
-from keras_preprocessing.image import ImageDataGenerator
-import keras.backend as K
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.optimizers import Adam, RMSprop
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import tensorflow.keras.backend as K
 
 # Thư viện xử lý âm thanh và trực quan hóa
 import librosa
@@ -119,7 +120,11 @@ model.add(Dense(512))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(10, activation='softmax'))
-model.compile(optimizers.rmsprop(lr=0.0005, decay=1e-6),loss="categorical_crossentropy",metrics=["accuracy"])
+model.compile(
+    optimizer=RMSprop(learning_rate=0.0005),  # Sử dụng learning_rate thay vì lr
+    loss="categorical_crossentropy",
+    metrics=["accuracy"]
+)
 model.summary()
 
 '''
@@ -161,12 +166,14 @@ STEP_SIZE_TRAIN=train_generator.n//train_generator.batch_size
 STEP_SIZE_VALID=valid_generator.n//valid_generator.batch_size
 
 # Train model
-model.fit_generator(generator=train_generator,
-                    steps_per_epoch=STEP_SIZE_TRAIN,
-                    validation_data=valid_generator,
-                    validation_steps=STEP_SIZE_VALID,
-                    epochs=100,verbose=1
-)
+# Train model
+model.fit(train_generator,
+          steps_per_epoch=STEP_SIZE_TRAIN,
+          validation_data=valid_generator,
+          validation_steps=STEP_SIZE_VALID,
+          epochs=100, verbose=1)
+
+
 
 model.save("model.h5");
 # Luu ten class

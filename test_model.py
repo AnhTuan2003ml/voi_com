@@ -6,7 +6,7 @@ from glob import glob
 import numpy as np
 from keras import layers
 from keras import models
-from keras.layers.advanced_activations import LeakyReLU
+from tensorflow.keras.layers import LeakyReLU
 from keras.optimizers import Adam
 import keras.backend as K
 import librosa
@@ -70,7 +70,7 @@ test_generator.reset()
 
 # Load model da train
 model = load_model('model.h5')
-pred = model.predict_generator(test_generator,steps=STEP_SIZE_TEST,verbose=1)
+pred = model.predict(test_generator, steps=STEP_SIZE_TEST, verbose=1)
 
 
 # Lay class predict probality lon nhat
